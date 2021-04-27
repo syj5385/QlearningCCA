@@ -368,8 +368,6 @@ static void training(struct sock *sk, const struct rate_sample *rs){
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct Q_cong *qc = inet_csk_ca(sk);
 	u32 reward;
-
-	
 	u32 training_timer_expired = after(tcp_jiffies32, qc -> last_update_stamp + msecs_to_jiffies(training_interval_msec)); 
 
 	if(training_timer_expired && qc -> mode == NOTHING){
@@ -388,8 +386,7 @@ static void training(struct sock *sk, const struct rate_sample *rs){
 			qc -> exited = 0; 
 			return; 
 		}
-
-
+		
 		/* Step4. calculate reward & update Q-table */
 		reward = getRewardFromEnvironment(sk,rs);
 		printk(KERN_INFO "Reward : %u", reward);
